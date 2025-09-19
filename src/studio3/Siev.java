@@ -5,18 +5,32 @@ public class Siev {
         Scanner scan = new Scanner(System.in);
         System.out.println("Up to what number do you want to find all the prime numbers?");
         int n = scan.nextInt();
-        int[] numberSet = new int[n];
-        boolean[] primeNumbers = new boolean[n];
-        for (int point = 0; point <= n; point++) {
-            primeNumbers[point] = true;
+        boolean[] numberSet = new boolean[n + 1];
+
+        // initialize
+        for (int i = 2; i <= n; i++) {
+            numberSet[i] = true;
         }
-        for (int test = numberSet[0]; test <= n; test++){
-            if(numberSet[0] + test == ){
-                numberSet[0] = 2;                
+
+        // sieve
+        for (int j = 2; j * j <= n; j++) {
+            if (numberSet[j]) {
+                for (int m = j * j; m <= n; m += j) {
+                    numberSet[m] = false;
+                }
             }
+        }
 
-
+        // print primes
+        boolean first = true;
+        for (int p = 2; p <= n; p++) {
+            if (numberSet[p]) {
+                if (!first) {
+                    System.out.print(", ");
+                }
+                System.out.print(p);
+                first = false;
+            }
         }
     }
-
 }
